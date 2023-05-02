@@ -83,6 +83,13 @@ void PointcloudConcatenate::handleParams() {
     ROSPARAM_WARN(param_name, param_hz_);
   }
 
+  // Verbosity please shut up
+  param_name = node_name_ + "/verb";
+  if (!ros::param::get(param_name, param_verb_)) {
+    param_verb_ = true;
+    ROSPARAM_WARN(param_name, param_verb_);
+  }
+
   ROS_INFO("Parameters loaded.");
 }
 
@@ -118,7 +125,7 @@ void PointcloudConcatenate::update() {
     // Concatenate the first pointcloud
     if (param_clouds_ >= 1 && success && cloud_in1_received) {
       // Warn if cloud was not received since last update
-      if (!cloud_in1_received_recent) {
+      if (!cloud_in1_received_recent && param_verb_) {
         ROS_WARN("Cloud 1 was not received since last update, reusing last received message...");
       }
       cloud_in1_received_recent = false;
@@ -135,7 +142,7 @@ void PointcloudConcatenate::update() {
     // Concatenate the second pointcloud
     if (param_clouds_ >= 2 && success && cloud_in2_received) {
       // Warn if cloud was not received since last update
-      if (!cloud_in2_received_recent) {
+      if (!cloud_in2_received_recent && param_verb_) {
         ROS_WARN("Cloud 2 was not received since last update, reusing last received message...");
       }
       cloud_in2_received_recent = false;
@@ -155,7 +162,7 @@ void PointcloudConcatenate::update() {
     // Concatenate the third pointcloud
     if (param_clouds_ >= 3 && success && cloud_in3_received) {
       // Warn if cloud was not received since last update
-      if (!cloud_in3_received_recent) {
+      if (!cloud_in3_received_recent && param_verb_) {
         ROS_WARN("Cloud 3 was not received since last update, reusing last received message...");
       }
       cloud_in3_received_recent = false;
@@ -175,7 +182,7 @@ void PointcloudConcatenate::update() {
     // Concatenate the fourth pointcloud
     if (param_clouds_ >= 4 && success && cloud_in4_received) {
       // Warn if cloud was not received since last update
-      if (!cloud_in4_received_recent) {
+      if (!cloud_in4_received_recent && param_verb_) {
         ROS_WARN("Cloud 4 was not received since last update, reusing last received message...");
       }
       cloud_in4_received_recent = false;

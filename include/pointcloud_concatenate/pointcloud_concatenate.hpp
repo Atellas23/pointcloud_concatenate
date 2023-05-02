@@ -50,6 +50,7 @@ private:
   std::string param_frame_target_;
   int param_clouds_;
   double param_hz_;
+  bool param_verb_;
 
   // Publisher and subscribers
   ros::Subscriber sub_cloud_in1 = nh_.subscribe("cloud_in1", 1, &PointcloudConcatenate::subCallbackCloudIn1, this);
